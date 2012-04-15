@@ -243,14 +243,30 @@ h2 {
 
 header, .sidebar, .main {
   background: #fdfdfd;
+  
+}
+.mainarea {
+  background: #fdfdfd;
   border: 1px solid #E1E1E8;
+  border-top: 0;
+  float: left;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+  margin-bottom: 50px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 .main {
   background: #fefefe;
+  border-left: 1px solid #E1E1E8;
 }
 .sidebar, .main {
-  border-top: 0;
   min-height: 400px;
+  height: 100%;
   padding: 10px 0;
 }
 
@@ -299,6 +315,7 @@ header {
   -moz-border-radius-topright: 4px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  border: 1px solid #E1E1E8;
 
   h1 {
     //background: url('../img/spatulaicon.png') 0px 5px no-repeat;
@@ -333,9 +350,7 @@ header {
   padding-right: 10px;
   float: left;
   border-right: 0;
-  -webkit-border-bottom-left-radius: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  border-bottom-left-radius: 4px;
+  
 
 
   .menu {
@@ -364,21 +379,32 @@ header {
   }
 
 }
+
 .main {
-  width: 801px-20px;
+  width: 801px-20px-2px; //paddings of this and parent
   //max-width: 997px;
   padding-left: 10px;
   padding-right: 10px;
   float: left;
-  -webkit-border-bottom-right-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-  border-bottom-right-radius: 4px;
+  
 }
 
 .recipe {
-  .edit-btn {
+  .edit-btn, .save-btn, .cancel-btn {
     display: none;
     float: right;
+  }
+  .save-btn, .cancel-btn {
+    display: block;
+  }
+  .save-btn {
+    margin-left: 5px;
+  }
+  textarea, input[type="text"] {
+    width: 600px;
+  }
+  textarea {
+    min-height: 300px;
   }
 }
 .recipe:hover {
