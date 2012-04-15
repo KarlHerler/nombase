@@ -52,6 +52,7 @@ td{vertical-align:top;}
 .chromeframe{margin:0.2em 0;background:#ccc;color:black;padding:0.2em 0;}
 html{width:100%;}
 body{width:1024px;max-width:1300px;margin:1% auto;padding:2%;height:90%;}
+h2{font-size:14px;text-transform:uppercase;color:#999;}
 header,.sidebar,.main{background:#fdfdfd;border:1px solid #E1E1E8;}
 .main{background:#fefefe;}
 .sidebar,.main{border-top:0;min-height:400px;padding:10px 0;}
@@ -67,7 +68,6 @@ header form .btn{margin-top:-2px;}
 .sidebar .menu li .imgtainer{width:60px;float:left;}
 .sidebar .menu li .menutext{text-align:right;}
 .main{width:781px;padding-left:10px;padding-right:10px;float:left;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;border-bottom-right-radius:4px;}
-.recipe h2{font-size:14px;text-transform:uppercase;color:#999;}
 .recipe .edit-btn{display:none;float:right;}
 .recipe:hover .edit-btn{display:block;}
 @media only screen and (min-width:35em){}.ir{display:block;border:0;text-indent:-999em;overflow:hidden;background-color:transparent;background-repeat:no-repeat;text-align:left;direction:ltr;*line-height:0;}
