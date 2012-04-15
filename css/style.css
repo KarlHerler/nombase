@@ -58,10 +58,11 @@ header,.sidebar,.main{background:#fdfdfd;}
 .main{background:#fefefe;border-left:1px solid #E1E1E8;}
 .sidebar,.main{min-height:400px;height:100%;padding:10px 0;}
 .info{color:#999;font-weight:bold;text-transform:uppercase;}
-.tag{padding:5px 10px;margin:5px 0;color:#333;border:1px solid #E1E1E8;background:#fafafa;border-radius:2px;max-width:200px;display:inline-block;position:relative;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.05);color:#999;font-size:14px;}
+.tag{padding:5px 10px;margin:5px 0;color:#333;border:1px solid #E1E1E8;background:#fafafa;border-radius:2px;max-width:200px;display:inline-block;position:relative;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.05);color:#999;font-size:14px;cursor:pointer;}
 .tag:visited{color:#999;}
 .tag:hover{text-decoration:none;background:#f0f0f0;border:1px solid #E1E1E8;color:#0a0a0a;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.08);}
-header{height:40px;padding:40px 20px;-webkit-border-top-left-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;border-top-left-radius:4px;border-top-right-radius:4px;border:1px solid #E1E1E8;}header h1{font-size:48px;float:left;min-width:400px;max-width:30%;}
+header{height:40px;padding:40px 20px;-webkit-border-top-left-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;border-top-left-radius:4px;border-top-right-radius:4px;border:1px solid #E1E1E8;}header h1{font-size:48px;float:left;min-width:400px;max-width:30%;}header h1 a,header h1 a:visited,header h1 a:hover{color:#333;text-decoration:none;}
+header h1 a:hover{color:#3e3e3e;}
 header form{line-height:48px;float:left;min-width:30%;}header form .searchfield{min-width:400px;}
 header form .btn{margin-top:-2px;}
 .sidebar{width:200px;max-width:300px;padding-left:10px;padding-right:10px;float:left;border-right:0;}.sidebar .menu{list-style:none;padding:0 0 0 10px;}.sidebar .menu li{line-height:40px;border-bottom:1px solid #E1E1E8;}.sidebar .menu li a{color:#333;display:block;}
@@ -74,6 +75,7 @@ header form .btn{margin-top:-2px;}
 .recipe .save-btn{margin-left:5px;}
 .recipe textarea,.recipe input[type="text"]{width:600px;}
 .recipe textarea{min-height:300px;}
+.recipe .recipe-title{font-weight:bold;font-size:30px;height:36px;}
 .recipe:hover .edit-btn{display:block;}
 @media only screen and (min-width:35em){}.ir{display:block;border:0;text-indent:-999em;overflow:hidden;background-color:transparent;background-repeat:no-repeat;text-align:left;direction:ltr;*line-height:0;}
 .ir br{display:none;}
