@@ -11,4 +11,10 @@ var recipes = [{
 	"tags": ["Pizza", "Meat", "Baking"]
 }]
 
-var tags = ["Pizza", "Meat", "Baking", "Chicken", "Cow"]
+var tags = [
+			{"name": "Pizza"}, 
+			{"name": "Meat"}, 
+			{"name":"Baking"}, 
+			{"name":"Chicken"}, 
+			{"name":"Cow"}
+		   ]

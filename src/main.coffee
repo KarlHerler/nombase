@@ -4,5 +4,3 @@ window.tagbar = new TagBarView(tags)
 window.tag = new TagView
 
 tagbar.render()
-
-console.log tag.$el
