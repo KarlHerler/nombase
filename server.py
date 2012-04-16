@@ -6,9 +6,9 @@ app = Flask(__name__)
 def landing():
 	return render_template('nombase.html', state="")
 
-@app.route('/recipe/<r>')
+@app.route('/<r>')
 def recipe(r):
-	return render_template('nombase.html', state=("/recipe/"+r))
+	return render_template('nombase.html', state=("/"+r))
 
 
 if __name__ == "__main__":
