@@ -1,1 +1,2 @@
-static/js/app.js
+venv
+*.pyc
