@@ -5,3 +5,5 @@
 #				tags(Tag)
 
 class Recipe extends Backbone.Model
+	initialize: =>
+		@id = @get("title").toLowerCase().replace(/\ /, "-")
