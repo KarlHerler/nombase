@@ -20,15 +20,15 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="static/js/libs/modernizr-2.5.3.min.js"></script>
+  <script src="/static/js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -72,13 +72,13 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
 
-  <script src="static/js/libs/underscore-min.js"></script>
-  <script src="static/js/libs/backbone-min.js"></script>
+  <script src="/static/js/libs/underscore-min.js"></script>
+  <script src="/static/js/libs/backbone-min.js"></script>
 
   <!-- scripts concatenated and minified via build script -->
-  <script src="static/js/plugins.js"></script>
-  <script src="static/js/script.js"></script>
-  <script src="static/js/app.js"></script>
+  <script src="/static/js/plugins.js"></script>
+  <script src="/static/js/script.js"></script>
+  <script src="/static/js/app.js"></script>
   <!-- end scripts -->
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
@@ -89,5 +89,11 @@
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));
   </script>
+
+
+  <script>
+    window.app.navigate({{ state }});
+  </script>
+
 </body>
 </html>
