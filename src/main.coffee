@@ -5,7 +5,7 @@ class Workspace extends Backbone.Router
 	routes: {
 		'':		"show_root"
 		"new":	"make_new",
-		":r":	"recipe"
+		"recipe/:r":	"recipe"
 	}
 
 	show_root: =>
@@ -25,7 +25,7 @@ class Workspace extends Backbone.Router
 window.app = new Workspace()
 Backbone.history.start({pushState: true})
 
-app.navigate '', true
+#app.navigate '', true
 
 
 window.tagbar = new TagBarView(tags)

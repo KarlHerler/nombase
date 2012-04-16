@@ -39,5 +39,5 @@ class RecipesView extends Backbone.View
 		recipe = $(e.target).parent() if $(e.target).parent().hasClass("recipe")
 		recipe = $(e.target).parent().parent() if $(e.target).parent().parent().hasClass("recipe")
 		recipe = $(e.target).parent().parent().parent() if $(e.target).parent().parent().parent().hasClass("recipe")
-		app.navigate "/#{$(recipe).data("recipe")}", true
+		app.navigate "/recipe/#{$(recipe).data("recipe")}", true
 		false
