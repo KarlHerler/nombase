@@ -25,12 +25,12 @@ class RecipeView extends Backbone.View
 		view
 
 	# Mutates view state
-	edit: =>
+	edit: ->
 		editable = @make_editable()
 		@$el.html editable
 		editable
 
-	save: =>
+	save: ->
 		console.log "Save me!"
 
 
@@ -46,7 +46,7 @@ class RecipeView extends Backbone.View
 					      <h2>Instructions</h2>
 					      #{@recipe.get("instructions")}
 					    </div>"
-		editbtn + heading + ingredients + instructions
+		"<div id='recipe' class='recipe'>"+editbtn + heading + ingredients + instructions + "</div>"
 
 
 	# return: an editable version of the view
@@ -62,6 +62,6 @@ class RecipeView extends Backbone.View
 					      <h2>Instructions</h2>
 					      <textarea>#{@recipe.get("instructions").replace(/<br>/g, '\n')}</textarea>
 					    </div>"
-		editbtn + heading + ingredients + instructions
+		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>"
 
 

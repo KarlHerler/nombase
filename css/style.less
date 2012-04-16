@@ -428,7 +428,28 @@ header {
 }
 
 
-
+.recipes {
+  .recipe {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #E1E1E8;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    cursor: pointer;
+    .ingredients, .instructions {
+      width: 50%;
+      float: left;
+      font-size: 0.8em;
+      h2 {
+        font-size: 0.9em;
+        line-height: 20px;
+      }
+    }
+  }
+  .recipe:first-child {
+    padding-top: 0;
+  }
+}
 
 
 

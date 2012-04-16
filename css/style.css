@@ -77,6 +77,8 @@ header form .btn{margin-top:-2px;}
 .recipe textarea{min-height:300px;}
 .recipe .recipe-title{font-weight:bold;font-size:30px;height:36px;}
 .recipe:hover .edit-btn{display:block;}
+.recipes .recipe{float:left;width:100%;border-bottom:1px solid #E1E1E8;padding-bottom:10px;padding-top:10px;cursor:pointer;}.recipes .recipe .ingredients,.recipes .recipe .instructions{width:50%;float:left;font-size:0.8em;}.recipes .recipe .ingredients h2,.recipes .recipe .instructions h2{font-size:0.9em;line-height:20px;}
+.recipes .recipe:first-child{padding-top:0;}
 @media only screen and (min-width:35em){}.ir{display:block;border:0;text-indent:-999em;overflow:hidden;background-color:transparent;background-repeat:no-repeat;text-align:left;direction:ltr;*line-height:0;}
 .ir br{display:none;}
 .hidden{display:none !important;visibility:hidden;}
