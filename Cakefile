@@ -27,7 +27,7 @@ coffeeDir = 'src/'
 #]
 task 'build', 'Build a single JavaScript file from prod files', ->
   util.log "Building..."
-  exec "coffee --join src/app.js --compile src/Models/*.coffee src/Collections/*.coffee src/Views/*.coffee  src/main.coffee", (err, stdout, stderr) ->
+  exec "coffee --join static/js/app.js --compile src/Models/*.coffee src/Collections/*.coffee src/Views/*.coffee  src/main.coffee", (err, stdout, stderr) ->
     if err
       util.log err
       exec 'growlnotify Coffee ERROR -m "Could not build js"'  
@@ -37,7 +37,7 @@ task 'build', 'Build a single JavaScript file from prod files', ->
 
 task 'buildCss', 'Building a single css file out of all less files', ->
   util.log "lessing.."
-  exec "lessc css/style.less > css/style.css -x", (err, stdout, stderr) ->
+  exec "lessc static/css/style.less > static/css/style.css -x", (err, stdout, stderr) ->
     if err
       util.log err 
       exec 'growlnotify Less ERROR -m "Could not build css"'
