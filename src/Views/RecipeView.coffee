@@ -4,8 +4,8 @@ class RecipeView extends Backbone.View
 	id: "recipe"
 
 	events: {
-		"click #editRecipe":	"edit"
-		"click #cancelEdit":	"render"
+		"click #editRecipe":	"navigate_edit"
+		"click #cancelEdit":	"back"
 		"click #saveEdits":		"save"
 	}
 
@@ -30,13 +30,36 @@ class RecipeView extends Backbone.View
 		@$el.html editable
 		editable
 
-	save: ->
-		console.log "Save me!"
+	navigate_edit: ->
+		console.log "/#{@recipe.get("id")}/edit"
+		app.navigate "/#{@recipe.get("id")}/edit", true 
 
+	save: ->
+		updates = "{"
+		changed = false
+		if $("input[name=title]").val()!=""
+			@recipe.set({'title': $("input[name=title]").val() }) 
+		if $("textarea[name=ingredients]").val()!=""						
+			@recipe.set({'ingredients': $("textarea[name=ingredients]").val().replace(/\n\r?/g, "<br>") }) 
+		if $("textarea[name=instructions]").val()!=""	
+			@recipe.set({'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>") })
+
+		updates += "}"
+		#@render
+
+		console.log @recipe
+		console.log @recipe.changedAttributes()
+
+
+	back: ->
+		history.go(-1)
 
 	# return: a uneditable version of the view
 	make_view: ->
-		editbtn = 		"<div class='btn edit-btn' id='editRecipe'>Edit</div>"
+		editbtn = 		"<div class='controls'>
+							<a class='btn' href='/'><i class='icon-arrow-left'></i></a>
+							<div class='btn edit-btn' id='editRecipe'><i class='icon-pencil'></i></div>
+						</div>"
 		heading = 		"<h1>#{@recipe.get("title")}</h1>"
 		ingredients = 	"<div class='ingredients'>
 							<h2>Ingredients</h2>
@@ -51,17 +74,35 @@ class RecipeView extends Backbone.View
 
 	# return: an editable version of the view
 	make_editable: ->
-		editbtn = 		"<div class='btn btn-primary save-btn' id='saveEdits'>Save</div> 
-						 <div class='btn cancel-btn' id='cancelEdit'>Cancel</div>"
-		heading = 		"<input type='text' class='recipe-title' name='title' value='#{@recipe.get("title")}'></input>"
+		title = @has "title"
+		ingredients = (@has "ingredients").replace(/<br>/, "\n")
+		instructions = (@has "instructions").replace(/<br>/, "\n")
+
+		editbtn = 		"<div class='controls'>
+							<div class='btn btn-primary save-btn' id='saveEdits'>
+								<i class='icon-ok'></i>
+							</div> 
+						 	<div class='btn cancel-btn' id='cancelEdit'>
+						 		<i class='icon-ban-circle'></i>
+						 	</div>
+						 </div>"
+		heading = 		"<input type='text' class='recipe-title' name='title' value='#{title}'></input>"
 		ingredients = 	"<div class='ingredients'>
 							<h2>Ingredients</h2>
-							<textarea>#{@recipe.get("ingredients").replace(/<br>/g, '\n')}</textarea>
+							<textarea name='ingredients'>#{ingredients}</textarea>
 						</div>"
 		instructions = 	"<div class='instructions'>
 					      <h2>Instructions</h2>
-					      <textarea>#{@recipe.get("instructions").replace(/<br>/g, '\n')}</textarea>
+					      <textarea name='instructions'>#{instructions}</textarea>
 					    </div>"
 		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>"
+
+	# Conditional assignment 
+	# returns existing if existing or 
+	has: (v) ->
+		try
+			return @recipe.get(v)
+		catch error
+			return ""
 
 

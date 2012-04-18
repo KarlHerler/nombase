@@ -6,6 +6,7 @@ class RecipesView extends Backbone.View
 
 	events: {
 		"click .recipe": "showRecipe"
+		"click #newRecipe": "newRecipe"
 	}
 
 	initialize: =>
@@ -17,7 +18,12 @@ class RecipesView extends Backbone.View
 
 
 	render: =>
-		ret = (@make_recipe_view(r) for r in @recipes).join ""
+		controls = "<div class='controls'>
+						<div class='btn ralign' id='newRecipe'>
+							<i class='icon-plus'></i>
+						</div>
+					</div>"
+		ret = controls + (@make_recipe_view(r) for r in @recipes).join ""
 		@$el.html ret
 		ret
 
@@ -41,3 +47,6 @@ class RecipesView extends Backbone.View
 		recipe = $(e.target).parent().parent().parent() if $(e.target).parent().parent().parent().hasClass("recipe")
 		app.navigate "/#{$(recipe).data("recipe")}", true
 		false
+
+	newRecipe: ->
+		app.navigate "/new", true
