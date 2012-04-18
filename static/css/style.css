@@ -51,7 +51,7 @@ table{border-collapse:collapse;border-spacing:0;}
 td{vertical-align:top;}
 .chromeframe{margin:0.2em 0;background:#ccc;color:black;padding:0.2em 0;}
 html{width:100%;}
-body{width:1024px;max-width:1300px;margin:1% auto;padding:2%;height:90%;}
+body{width:1024px;max-width:1300px;margin:13px auto;padding:27px;height:90%;}
 h2{font-size:14px;text-transform:uppercase;color:#999;}
 header,.sidebar,.main{background:#fdfdfd;}
 .mainarea{background:#fdfdfd;border:1px solid #E1E1E8;border-top:0;float:left;-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;border-bottom-left-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;border-bottom-right-radius:4px;margin-bottom:50px;padding-left:1px;padding-right:1px;}
@@ -69,14 +69,14 @@ header form .btn{margin-top:-2px;}
 .sidebar .menu li a:hover{text-decoration:none;background:#fff;}
 .sidebar .menu li .imgtainer{width:60px;float:left;}
 .sidebar .menu li .menutext{text-align:right;}
-.main{width:779px;padding-left:10px;padding-right:10px;float:left;}
-.recipe .edit-btn,.recipe .save-btn,.recipe .cancel-btn{display:none;float:right;}
+.main{width:779px;padding:0 10px;padding-top:40px;float:left;}.main .controls{width:780px;padding:5px 10px;margin-left:-10px;position:absolute;top:162px;background:#fff;border-bottom:1px solid #E1E1E8;background:rgba(255, 255, 255, 0.7);border-bottom:1px solid rgba(225, 225, 232, 0.5);}.main .controls .ralign{float:right;}
+.main:hover .controls{display:block;}
+.recipe .edit-btn,.recipe .save-btn,.recipe .cancel-btn{float:right;}
 .recipe .save-btn,.recipe .cancel-btn{display:block;}
 .recipe .save-btn{margin-left:5px;}
 .recipe textarea,.recipe input[type="text"]{width:600px;}
 .recipe textarea{min-height:300px;}
-.recipe .recipe-title{font-weight:bold;font-size:30px;height:36px;}
-.recipe:hover .edit-btn{display:block;}
+.recipe .recipe-title{font-weight:bold;font-size:30px;height:36px;margin-top:2px;}
 .recipes .recipe{float:left;width:100%;border-bottom:1px solid #E1E1E8;padding-bottom:10px;padding-top:10px;cursor:pointer;}.recipes .recipe .ingredients,.recipes .recipe .instructions{width:50%;float:left;font-size:0.8em;}.recipes .recipe .ingredients h2,.recipes .recipe .instructions h2{font-size:0.9em;line-height:20px;}
 .recipes .recipe:first-child{padding-top:0;}
 @media only screen and (min-width:35em){}.ir{display:block;border:0;text-indent:-999em;overflow:hidden;background-color:transparent;background-repeat:no-repeat;text-align:left;direction:ltr;*line-height:0;}

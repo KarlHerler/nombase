@@ -230,8 +230,8 @@ body {
   //width: 90%;
   width: 1024px;
   max-width: 1300px;
-  margin:  1% auto;
-  padding: 2%;
+  margin:  13px auto;
+  padding: 27px;
   height: 90%;
 }
 h2 {
@@ -392,15 +392,35 @@ header {
 .main {
   width: 801px-20px-2px; //paddings of this and parent
   //max-width: 997px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 10px;
+  padding-top: 40px;
   float: left;
+  .controls {
+    width: 800px-20px;
+    padding: 5px 10px;
+    margin-left: -10px;
+    //display: none;
+    position: absolute;
+    top: 162px;
+    background: #fff;
+    border-bottom: 1px solid #E1E1E8;
+    background: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(225, 225, 232, 0.5);
+    .ralign {
+      float: right;
+    }
+  }
   
 }
+.main:hover {
+  .controls {
+    display: block;
+  }
+}
+
 
 .recipe {
   .edit-btn, .save-btn, .cancel-btn {
-    display: none;
     float: right;
   }
   .save-btn, .cancel-btn {
@@ -419,13 +439,10 @@ header {
     font-weight: bold;
     font-size: 30px;
     height: 36px;
+    margin-top: 2px;
   }
 }
-.recipe:hover {
-  .edit-btn {
-    display: block;
-  }
-}
+
 
 
 .recipes {
