@@ -62,7 +62,7 @@ task 'watch', 'Watch prod source files and build changes', ->
                   util.log "Saw a change!"
                   invoke 'build'
       util.log "Watching for changes in the less file"
-      fs.watchFile 'css/style.less', (curr, prev) ->
+      fs.watchFile 'static/css/style.less', (curr, prev) ->
         if +curr.mtime isnt +prev.mtime
           util.log "Saw a change!"
           invoke 'buildCss'
