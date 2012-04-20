@@ -3,13 +3,13 @@ A recipe database for delicious, delicious open source food. A demo exists on: h
 
 
 ##Requirements
-Python 2.6 or newer
-A SQL database, defaults to SQLite for development, Postgres for production.
+-  Python 2.6 or newer
+-  A SQL database, defaults to SQLite for development, Postgres for production.
 
 ##Dependencies
-Flask
-Jinja
-SQLAlchemy
+-  Flask
+-  Jinja
+-  SQLAlchemy
 
 
 ##Installation
