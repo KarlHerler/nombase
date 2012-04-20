@@ -35,20 +35,22 @@ class RecipeView extends Backbone.View
 		app.navigate "/#{@recipe.get("id")}/edit", true 
 
 	save: ->
-		updates = "{"
-		changed = false
 		if $("input[name=title]").val()!=""
+			@recipe = new Recipe() if @has("id")==""
 			@recipe.set({'title': $("input[name=title]").val() }) 
 		if $("textarea[name=ingredients]").val()!=""						
 			@recipe.set({'ingredients': $("textarea[name=ingredients]").val().replace(/\n\r?/g, "<br>") }) 
 		if $("textarea[name=instructions]").val()!=""	
 			@recipe.set({'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>") })
-
-		updates += "}"
-		#@render
-
-		console.log @recipe
-		console.log @recipe.changedAttributes()
+		
+		@recipe.save(null, {
+			success: (model, response) -> 
+				loc = window.location.href.split("/")
+				loc[loc.length-1] = model.id if loc[loc.length-1]=="new"
+				loc.pop()					 if loc[loc.length-1]=="edit"
+				window.location = loc.join("/")
+		})
+		
 
 
 	back: ->
@@ -75,8 +77,8 @@ class RecipeView extends Backbone.View
 	# return: an editable version of the view
 	make_editable: ->
 		title = @has "title"
-		ingredients = (@has "ingredients").replace(/<br>/, "\n")
-		instructions = (@has "instructions").replace(/<br>/, "\n")
+		ingredients = (@has "ingredients").replace(/<br>/g, "\n")
+		instructions = (@has "instructions").replace(/<br>/g, "\n")
 
 		editbtn = 		"<div class='controls'>
 							<div class='btn btn-primary save-btn' id='saveEdits'>
