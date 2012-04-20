@@ -15,7 +15,16 @@
       Recipe.__super__.constructor.apply(this, arguments);
     }
     Recipe.prototype.initialize = function() {
-      return this.id = this.get("title").toLowerCase().replace(/\ /, "-");
+      return this.urlRoot = "/";
+    };
+    Recipe.prototype.parse = function(response, xhr) {
+      var rsp;
+      rsp = JSON.parse(response.replace(/\'/g, '"'));
+      this.id = rsp.id;
+      this.title = rsp.title;
+      this.ingredients = rsp.ingredients;
+      this.instructions = rsp.instructions;
+      return this.tags = rsp.tags;
     };
     return Recipe;
   })();
@@ -51,8 +60,8 @@
     }
     RecipeView.prototype.id = "recipe";
     RecipeView.prototype.events = {
-      "click #editRecipe": "edit",
-      "click #cancelEdit": "render",
+      "click #editRecipe": "navigate_edit",
+      "click #cancelEdit": "back",
       "click #saveEdits": "save"
     };
     RecipeView.prototype.initialize = function() {
@@ -74,24 +83,71 @@
       this.$el.html(editable);
       return editable;
     };
+    RecipeView.prototype.navigate_edit = function() {
+      console.log("/" + (this.recipe.get("id")) + "/edit");
+      return app.navigate("/" + (this.recipe.get("id")) + "/edit", true);
+    };
     RecipeView.prototype.save = function() {
-      return console.log("Save me!");
+      if ($("input[name=title]").val() !== "") {
+        if (this.has("id") === "") {
+          this.recipe = new Recipe();
+        }
+        this.recipe.set({
+          'title': $("input[name=title]").val()
+        });
+      }
+      if ($("textarea[name=ingredients]").val() !== "") {
+        this.recipe.set({
+          'ingredients': $("textarea[name=ingredients]").val().replace(/\n\r?/g, "<br>")
+        });
+      }
+      if ($("textarea[name=instructions]").val() !== "") {
+        this.recipe.set({
+          'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>")
+        });
+      }
+      return this.recipe.save(null, {
+        success: function(model, response) {
+          var loc;
+          loc = window.location.href.split("/");
+          if (loc[loc.length - 1] === "new") {
+            loc[loc.length - 1] = model.id;
+          }
+          if (loc[loc.length - 1] === "edit") {
+            loc.pop();
+          }
+          return window.location = loc.join("/");
+        }
+      });
+    };
+    RecipeView.prototype.back = function() {
+      return history.go(-1);
     };
     RecipeView.prototype.make_view = function() {
       var editbtn, heading, ingredients, instructions;
-      editbtn = "<div class='btn edit-btn' id='editRecipe'>Edit</div>";
+      editbtn = "<div class='controls'>							<a class='btn' href='/'><i class='icon-arrow-left'></i></a>							<div class='btn edit-btn' id='editRecipe'><i class='icon-pencil'></i></div>						</div>";
       heading = "<h1>" + (this.recipe.get("title")) + "</h1>";
       ingredients = "<div class='ingredients'>							<h2>Ingredients</h2>							" + (this.recipe.get("ingredients")) + "						</div>";
       instructions = "<div class='instructions'>					      <h2>Instructions</h2>					      " + (this.recipe.get("instructions")) + "					    </div>";
       return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>";
     };
     RecipeView.prototype.make_editable = function() {
-      var editbtn, heading, ingredients, instructions;
-      editbtn = "<div class='btn btn-primary save-btn' id='saveEdits'>Save</div> 						 <div class='btn cancel-btn' id='cancelEdit'>Cancel</div>";
-      heading = "<input type='text' class='recipe-title' name='title' value='" + (this.recipe.get("title")) + "'></input>";
-      ingredients = "<div class='ingredients'>							<h2>Ingredients</h2>							<textarea>" + (this.recipe.get("ingredients").replace(/<br>/g, '\n')) + "</textarea>						</div>";
-      instructions = "<div class='instructions'>					      <h2>Instructions</h2>					      <textarea>" + (this.recipe.get("instructions").replace(/<br>/g, '\n')) + "</textarea>					    </div>";
+      var editbtn, heading, ingredients, instructions, title;
+      title = this.has("title");
+      ingredients = (this.has("ingredients")).replace(/<br>/g, "\n");
+      instructions = (this.has("instructions")).replace(/<br>/g, "\n");
+      editbtn = "<div class='controls'>							<div class='btn btn-primary save-btn' id='saveEdits'>								<i class='icon-ok'></i>							</div> 						 	<div class='btn cancel-btn' id='cancelEdit'>						 		<i class='icon-ban-circle'></i>						 	</div>						 </div>";
+      heading = "<input type='text' class='recipe-title' name='title' value='" + title + "'></input>";
+      ingredients = "<div class='ingredients'>							<h2>Ingredients</h2>							<textarea name='ingredients'>" + ingredients + "</textarea>						</div>";
+      instructions = "<div class='instructions'>					      <h2>Instructions</h2>					      <textarea name='instructions'>" + instructions + "</textarea>					    </div>";
       return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>";
+    };
+    RecipeView.prototype.has = function(v) {
+      try {
+        return this.recipe.get(v);
+      } catch (error) {
+        return "";
+      }
     };
     return RecipeView;
   })();
@@ -105,7 +161,8 @@
     RecipesView.prototype.id = "recipes";
     RecipesView.prototype.className = "recipes";
     RecipesView.prototype.events = {
-      "click .recipe": "showRecipe"
+      "click .recipe": "showRecipe",
+      "click #newRecipe": "newRecipe"
     };
     RecipesView.prototype.initialize = function() {
       this.recipes = this.options.models;
@@ -115,8 +172,9 @@
       return this.$el.removeAttr("tags");
     };
     RecipesView.prototype.render = function() {
-      var r, ret;
-      ret = ((function() {
+      var controls, r, ret;
+      controls = "<div class='controls'>						<div class='btn ralign' id='newRecipe'>							<i class='icon-plus'></i>						</div>					</div>";
+      ret = controls + ((function() {
         var _i, _len, _ref, _results;
         _ref = this.recipes;
         _results = [];
@@ -152,6 +210,9 @@
       }
       app.navigate("/" + ($(recipe).data("recipe")), true);
       return false;
+    };
+    RecipesView.prototype.newRecipe = function() {
+      return app.navigate("/new", true);
     };
     return RecipesView;
   })();
@@ -189,6 +250,7 @@
   Workspace = (function() {
     __extends(Workspace, Backbone.Router);
     function Workspace() {
+      this.edit_recipe = __bind(this.edit_recipe, this);
       this.recipe = __bind(this.recipe, this);
       this.show_root = __bind(this.show_root, this);
       Workspace.__super__.constructor.apply(this, arguments);
@@ -196,7 +258,8 @@
     Workspace.prototype.routes = {
       '': "show_root",
       "new": "make_new",
-      ":r": "recipe"
+      ":r": "recipe",
+      ":r/edit": "edit_recipe"
     };
     Workspace.prototype.show_root = function() {
       window.recipesview = new RecipesView(recipes);
@@ -209,8 +272,17 @@
       recipeview.render();
       return $(".main").html(recipeview.$el);
     };
+    Workspace.prototype.edit_recipe = function(r) {
+      var recipeview;
+      recipeview = new RecipeView(recipes.get(r));
+      recipeview.edit();
+      return $(".main").html(recipeview.$el);
+    };
     Workspace.prototype.make_new = function() {
-      return console.log("newnew");
+      var recipeview;
+      recipeview = new RecipeView();
+      recipeview.edit();
+      return $(".main").html(recipeview.$el);
     };
     return Workspace;
   })();
