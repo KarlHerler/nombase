@@ -14,7 +14,7 @@ A recipe database for your delicious, delicious open source food. A demo exists 
 
 ##Installation
 1. Clone this repositiory, either using `git clone https://github.com/KarlHerler/nombase` or by downloading a zipball
-2. Install the required files using `pip install -r requirements.txt
+2. Install the required files using `pip install -r requirements.txt`
 3. Run using the command `python server.py`
 
 ##Deploying to heroku
