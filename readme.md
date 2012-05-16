@@ -1,5 +1,7 @@
 #Nombase
-A recipe database for your delicious, delicious open source food. A demo exists on: http://nombase.herokuapp.com/
+A recipe database for your delicious, delicious open source food. A demo exists 
+on: http://nombase.herokuapp.com/.
+There is somewhat further documentation in the various folders.
 
 
 ##Requirements
@@ -18,13 +20,15 @@ A recipe database for your delicious, delicious open source food. A demo exists 
 3. Run using the command `python server.py`
 
 ##Deploying to heroku
-I've set this project up to be deployable on heroku (ceder) as is so just go ahead. You should note that you need to add the free heroku postgres database (or the other postgres databases), using for instance `heroku addons:add shared-database`.
+I've set this project up to be deployable on heroku (ceder) as is so just go 
+ahead. You should note that you need to add the free heroku postgres database 
+(or the other postgres databases), using for instance `heroku addons:add shared-database`.
 
 ##Todo
-- Tags support
 - Search support
 - Support for pictures of food.
 - Adding a new recipe should not force a page refresh.
+- Organize code a bit better, refractor.
 - Cleanup and in code documentation.
 
 
