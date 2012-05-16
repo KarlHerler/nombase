@@ -1,5 +1,5 @@
 (function() {
-  var Recipe, RecipeView, Recipes, RecipesView, Tag, TagBarView, Tags, Workspace;
+  var Recipe, RecipeView, Recipes, RecipesView, SearchBarView, Tag, TagBarView, Tags, Workspace;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
     for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
     function ctor() { this.constructor = child; }
@@ -216,6 +216,52 @@
     };
     return RecipesView;
   })();
+  SearchBarView = (function() {
+    __extends(SearchBarView, Backbone.View);
+    function SearchBarView() {
+      this.render = __bind(this.render, this);
+      SearchBarView.__super__.constructor.apply(this, arguments);
+    }
+    SearchBarView.prototype.el = $("#form_search");
+    SearchBarView.prototype.events = {
+      'keyup #searchfield': 'filter'
+    };
+    SearchBarView.prototype.render = function() {
+      var ret;
+      ret = "<input type='text' id='searchfield' class='input-medium searchfield' placeholder='e.g. Salad'>			   <button type='submit' class='btn'>Search</button>";
+      $(this.el).html(ret);
+      return ret;
+    };
+    SearchBarView.prototype.filter = function(e) {
+      var search_reg, search_string;
+      search_string = $(e.target).val();
+      search_reg = new RegExp(search_string, 'igm');
+      if (search_string.length === 0) {
+        window.recipesview = new RecipesView(window.recipes);
+      } else {
+        window.recipesview = new RecipesView(new Recipes(window.recipes.filter(function(recipe) {
+          var ingredients_result, instructions_result, result, title_result;
+          title_result = recipe.get("title").match(search_reg);
+          ingredients_result = recipe.get("ingredients").match(search_reg);
+          instructions_result = recipe.get("instructions").match(search_reg);
+          result = 0;
+          if (title_result !== null) {
+            result += title_result.length;
+          }
+          if (ingredients_result !== null) {
+            result += ingredients_result.length;
+          }
+          if (instructions_result !== null) {
+            result += instructions_result.length;
+          }
+          return result > 0;
+        })));
+      }
+      recipesview.render();
+      return $(".main").html(recipesview.$el);
+    };
+    return SearchBarView;
+  })();
   TagBarView = (function() {
     __extends(TagBarView, Backbone.View);
     function TagBarView() {
@@ -262,15 +308,20 @@
       ":r/edit": "edit_recipe"
     };
     Workspace.prototype.show_root = function() {
+      var searchbar;
       window.recipesview = new RecipesView(recipes);
       recipesview.render();
-      return $(".main").html(recipesview.$el);
+      $(".main").html(recipesview.$el);
+      searchbar = new SearchBarView;
+      return searchbar.render();
     };
     Workspace.prototype.recipe = function(r) {
-      var recipeview;
+      var recipeview, searchbar;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.render();
-      return $(".main").html(recipeview.$el);
+      $(".main").html(recipeview.$el);
+      searchbar = new SearchBarView;
+      return searchbar.render();
     };
     Workspace.prototype.edit_recipe = function(r) {
       var recipeview;
