@@ -13,11 +13,15 @@ class Workspace extends Backbone.Router
 		window.recipesview = new RecipesView(recipes)
 		recipesview.render()
 		$(".main").html recipesview.$el
+		searchbar = new SearchBarView
+		searchbar.render()
 
 	recipe: (r) =>
 		recipeview = new RecipeView(recipes.get(r))
 		recipeview.render()
 		$(".main").html(recipeview.$el)
+		searchbar = new SearchBarView
+		searchbar.render()
 
 	edit_recipe: (r) =>
 		recipeview = new RecipeView(recipes.get(r))
