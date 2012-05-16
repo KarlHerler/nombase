@@ -1,6 +1,7 @@
 #Nombase
 A recipe database for your delicious, delicious open source food. A demo exists 
 on: http://nombase.herokuapp.com/.
+
 There is somewhat further documentation in the various folders.
 
 
@@ -33,4 +34,5 @@ ahead. You should note that you need to add the free heroku postgres database
 
 
 ##Contributing
-Really any help or anything at all you can or feel like doing is appreciated. If you find any bugs or anything that seems out of the ordinary, feel free to report an issue.
+Really any help or anything at all you can or feel like doing is appreciated. If 
+you find any bugs or anything that seems out of the ordinary, feel free to report an issue.
