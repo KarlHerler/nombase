@@ -15,6 +15,8 @@ class Workspace extends Backbone.Router
 		$(".main").html recipesview.$el
 		searchbar = new SearchBarView
 		searchbar.render()
+		window.tagbar = new TagBarView(tags)
+		tagbar.render()
 
 	recipe: (r) =>
 		recipeview = new RecipeView(recipes.get(r))
@@ -22,16 +24,24 @@ class Workspace extends Backbone.Router
 		$(".main").html(recipeview.$el)
 		searchbar = new SearchBarView
 		searchbar.render()
+		window.tagbar = new TagBarView(new Tags(({'name':t} for t in recipes.get(r).get("tags"))))
+		tagbar.render()
 
 	edit_recipe: (r) =>
 		recipeview = new RecipeView(recipes.get(r))
 		recipeview.edit()
 		$(".main").html(recipeview.$el)
+		$('#tags').tagsInput({'height':'35px','width':'600px','defaultText':''}); #enables the jquery.tagsinput plugin
+		window.tagbar = new TagBarView(new Tags(({'name':t} for t in recipes.get(r).get("tags"))))
+		tagbar.render()
 
 	make_new: ->
 		recipeview = new RecipeView()
 		recipeview.edit()
 		$(".main").html(recipeview.$el)
+		$('#tags').tagsInput({'height':'35px','width':'600px','defaultText':''}); #enables the jquery.tagsinput plugin
+		window.tagbar = new TagBarView(tags)
+		tagbar.render()
 
 
 window.app = new Workspace()
@@ -39,12 +49,11 @@ Backbone.history.start({pushState: true})
 
 
 
-window.tagbar = new TagBarView(tags)
+
 window.recipeview = new RecipeView(recipes.models[0])
 
 
 
-tagbar.render()
 
 
 recipeview.render()

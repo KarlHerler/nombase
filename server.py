@@ -22,7 +22,8 @@ def landing():
 @app.route('/', methods=['POST'])
 def new_recipe():
 	recipe = request.json
-	recipe = s.add_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], recipe[unicode("instructions")]) #, recipe[unicode("tags")]
+	recipe = s.add_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], 
+						  recipe[unicode("instructions")], recipe[unicode("tags")])
 	print recipe
 	return json.dumps(str(recipe))
 
