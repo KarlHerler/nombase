@@ -132,15 +132,17 @@
       return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>";
     };
     RecipeView.prototype.make_editable = function() {
-      var editbtn, heading, ingredients, instructions, title;
+      var editbtn, heading, ingredients, instructions, tags, title;
       title = this.has("title");
       ingredients = (this.has("ingredients")).replace(/<br>/g, "\n");
       instructions = (this.has("instructions")).replace(/<br>/g, "\n");
+      tags = this.has("tags");
       editbtn = "<div class='controls'>							<div class='btn btn-primary save-btn' id='saveEdits'>								<i class='icon-ok'></i>							</div> 						 	<div class='btn cancel-btn' id='cancelEdit'>						 		<i class='icon-ban-circle'></i>						 	</div>						 </div>";
       heading = "<input type='text' class='recipe-title' name='title' value='" + title + "'></input>";
       ingredients = "<div class='ingredients'>							<h2>Ingredients</h2>							<textarea name='ingredients'>" + ingredients + "</textarea>						</div>";
       instructions = "<div class='instructions'>					      <h2>Instructions</h2>					      <textarea name='instructions'>" + instructions + "</textarea>					    </div>";
-      return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>";
+      tags = "<div class='tags'>							<h2>Tags</h2>							<input name='tags' id='tags' value='" + tags + "' />						</div>";
+      return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + tags + "</div>";
     };
     RecipeView.prototype.has = function(v) {
       try {
@@ -327,13 +329,23 @@
       var recipeview;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.edit();
-      return $(".main").html(recipeview.$el);
+      $(".main").html(recipeview.$el);
+      return $('#tags').tagsInput({
+        'height': '35px',
+        'width': '600px',
+        'defaultText': ''
+      });
     };
     Workspace.prototype.make_new = function() {
       var recipeview;
       recipeview = new RecipeView();
       recipeview.edit();
-      return $(".main").html(recipeview.$el);
+      $(".main").html(recipeview.$el);
+      return $('#tags').tagsInput({
+        'height': '35px',
+        'width': '600px',
+        'defaultText': ''
+      });
     };
     return Workspace;
   })();

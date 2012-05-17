@@ -27,11 +27,13 @@ class Workspace extends Backbone.Router
 		recipeview = new RecipeView(recipes.get(r))
 		recipeview.edit()
 		$(".main").html(recipeview.$el)
+		$('#tags').tagsInput({'height':'35px','width':'600px','defaultText':''}); #enables the jquery.tagsinput plugin
 
 	make_new: ->
 		recipeview = new RecipeView()
 		recipeview.edit()
 		$(".main").html(recipeview.$el)
+		$('#tags').tagsInput({'height':'35px','width':'600px','defaultText':''}); #enables the jquery.tagsinput plugin
 
 
 window.app = new Workspace()

@@ -79,6 +79,7 @@ class RecipeView extends Backbone.View
 		title = @has "title"
 		ingredients = (@has "ingredients").replace(/<br>/g, "\n")
 		instructions = (@has "instructions").replace(/<br>/g, "\n")
+		tags = @has "tags"
 
 		editbtn = 		"<div class='controls'>
 							<div class='btn btn-primary save-btn' id='saveEdits'>
@@ -97,7 +98,11 @@ class RecipeView extends Backbone.View
 					      <h2>Instructions</h2>
 					      <textarea name='instructions'>#{instructions}</textarea>
 					    </div>"
-		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>"
+		tags =			"<div class='tags'>
+							<h2>Tags</h2>
+							<input name='tags' id='tags' value='#{tags}' />
+						</div>"
+		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + tags + "</div>"
 
 	# Conditional assignment 
 	# returns existing if existing or 
