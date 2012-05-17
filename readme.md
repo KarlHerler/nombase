@@ -26,7 +26,6 @@ ahead. You should note that you need to add the free heroku postgres database
 (or the other postgres databases), using for instance `heroku addons:add shared-database`.
 
 ##Todo
-- Search support
 - Support for pictures of food.
 - Adding a new recipe should not force a page refresh.
 - Organize code a bit better, refractor.
