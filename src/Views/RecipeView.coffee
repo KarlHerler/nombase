@@ -42,6 +42,8 @@ class RecipeView extends Backbone.View
 			@recipe.set({'ingredients': $("textarea[name=ingredients]").val().replace(/\n\r?/g, "<br>") }) 
 		if $("textarea[name=instructions]").val()!=""	
 			@recipe.set({'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>") })
+		if $("#tags").val()!="" or $("#tags").val()==undefined
+			@recipe.set({'tags':$("#tags").val().split(/,/g)})
 		
 		@recipe.save(null, {
 			success: (model, response) -> 
@@ -79,6 +81,7 @@ class RecipeView extends Backbone.View
 		title = @has "title"
 		ingredients = (@has "ingredients").replace(/<br>/g, "\n")
 		instructions = (@has "instructions").replace(/<br>/g, "\n")
+		tags = @has "tags"
 
 		editbtn = 		"<div class='controls'>
 							<div class='btn btn-primary save-btn' id='saveEdits'>
@@ -97,7 +100,11 @@ class RecipeView extends Backbone.View
 					      <h2>Instructions</h2>
 					      <textarea name='instructions'>#{instructions}</textarea>
 					    </div>"
-		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>"
+		tags =			"<div class='tags'>
+							<h2>Tags</h2>
+							<input name='tags' id='tags' value='#{tags}' />
+						</div>"
+		"<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + tags + "</div>"
 
 	# Conditional assignment 
 	# returns existing if existing or 
