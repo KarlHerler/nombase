@@ -63,10 +63,9 @@ class Storage:
             id = title.lower().replace(" ", "-")
         
         tags_raw = tags
-        #tags = [Tag(name=t) for t in tags[1:-1].split(',')]
         r = Recipe(id=id, title=title, ingredients=ingredients, instructions=instructions)
-        #r.tags = tags
-
+        r.tags = [Tag(name=t) for t in tags]
+        
         session.add(r)
 
         try: #Trying to store
@@ -87,10 +86,10 @@ class Storage:
         recipe.title = title
         recipe.ingredients = ingredients
         recipe.instructions = instructions
+        recipe.tags = [Tag(name=t) for t in tags]
         session.commit()
         return recipe
-        #r.tags = tags
-
+        
     def generate_new_id(self, id):
         id_construct = id.split("-")
         try: #Trying to find numeral at the end (in case serval of the same exists)
