@@ -320,37 +320,67 @@
       recipesview.render();
       $(".main").html(recipesview.$el);
       searchbar = new SearchBarView;
-      return searchbar.render();
+      searchbar.render();
+      window.tagbar = new TagBarView(tags);
+      return tagbar.render();
     };
     Workspace.prototype.recipe = function(r) {
-      var recipeview, searchbar;
+      var recipeview, searchbar, t;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.render();
       $(".main").html(recipeview.$el);
       searchbar = new SearchBarView;
-      return searchbar.render();
+      searchbar.render();
+      window.tagbar = new TagBarView(new Tags((function() {
+        var _i, _len, _ref, _results;
+        _ref = recipes.get(r).get("tags");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          t = _ref[_i];
+          _results.push({
+            'name': t
+          });
+        }
+        return _results;
+      })()));
+      return tagbar.render();
     };
     Workspace.prototype.edit_recipe = function(r) {
-      var recipeview;
+      var recipeview, t;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.edit();
       $(".main").html(recipeview.$el);
-      return $('#tags').tagsInput({
+      $('#tags').tagsInput({
         'height': '35px',
         'width': '600px',
         'defaultText': ''
       });
+      window.tagbar = new TagBarView(new Tags((function() {
+        var _i, _len, _ref, _results;
+        _ref = recipes.get(r).get("tags");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          t = _ref[_i];
+          _results.push({
+            'name': t
+          });
+        }
+        return _results;
+      })()));
+      return tagbar.render();
     };
     Workspace.prototype.make_new = function() {
       var recipeview;
       recipeview = new RecipeView();
       recipeview.edit();
       $(".main").html(recipeview.$el);
-      return $('#tags').tagsInput({
+      $('#tags').tagsInput({
         'height': '35px',
         'width': '600px',
         'defaultText': ''
       });
+      window.tagbar = new TagBarView(tags);
+      return tagbar.render();
     };
     return Workspace;
   })();
@@ -358,8 +388,6 @@
   Backbone.history.start({
     pushState: true
   });
-  window.tagbar = new TagBarView(tags);
   window.recipeview = new RecipeView(recipes.models[0]);
-  tagbar.render();
   recipeview.render();
 }).call(this);
