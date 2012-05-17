@@ -42,6 +42,8 @@ class RecipeView extends Backbone.View
 			@recipe.set({'ingredients': $("textarea[name=ingredients]").val().replace(/\n\r?/g, "<br>") }) 
 		if $("textarea[name=instructions]").val()!=""	
 			@recipe.set({'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>") })
+		if $("#tags").val()!="" or $("#tags").val()==undefined
+			@recipe.set({'tags':$("#tags").val().split(/,/g)})
 		
 		@recipe.save(null, {
 			success: (model, response) -> 

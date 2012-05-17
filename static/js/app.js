@@ -106,6 +106,11 @@
           'instructions': $("textarea[name=instructions]").val().replace(/\n\r?/g, "<br>")
         });
       }
+      if ($("#tags").val() !== "" || $("#tags").val() === void 0) {
+        this.recipe.set({
+          'tags': $("#tags").val().split(/,/g)
+        });
+      }
       return this.recipe.save(null, {
         success: function(model, response) {
           var loc;
