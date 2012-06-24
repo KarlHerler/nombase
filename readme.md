@@ -1,4 +1,5 @@
 #Nombase
+![This is how nombase looks](http://f.cl.ly/items/2r3f1N3p37011J1S2C0n/Screen%20Shot%202012-06-24%20at%202.45.20%20PM.png)
 A recipe database for your delicious, delicious open source food. A demo exists 
 on: http://nombase.herokuapp.com/.
 
