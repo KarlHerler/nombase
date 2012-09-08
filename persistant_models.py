@@ -68,7 +68,7 @@ class Storage:
         return session.query(Recipe).all()
 
     def tags(self):
-        return [{'name': str(t.name) } for t in session.query(Tag.name).distinct()]
+        return [{'name': t.name } for t in session.query(Tag.name).distinct()]
 
     def add_recipe(self, title, ingredients, instructions, tags=None, id=None):
         if not id:
