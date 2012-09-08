@@ -81,8 +81,8 @@ class RecipeView extends Backbone.View
 		title = @has "title"
 		ingredients = (@has "ingredients").replace(/<br>/g, "\n")
 		instructions = (@has "instructions").replace(/<br>/g, "\n")
-		tags = @has "tags"
-
+		tags = (t["name"] for t in @has "tags")
+		
 		editbtn = 		"<div class='controls'>
 							<div class='btn btn-primary save-btn' id='saveEdits'>
 								<i class='icon-ok'></i>
