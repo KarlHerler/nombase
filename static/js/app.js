@@ -19,7 +19,7 @@
     };
     Recipe.prototype.parse = function(response, xhr) {
       var rsp;
-      rsp = JSON.parse(response.replace(/\'/g, '"'));
+      rsp = response;
       this.id = rsp.id;
       this.title = rsp.title;
       this.ingredients = rsp.ingredients;
@@ -137,11 +137,20 @@
       return "<div id='recipe' class='recipe'>" + editbtn + heading + ingredients + instructions + "</div>";
     };
     RecipeView.prototype.make_editable = function() {
-      var editbtn, heading, ingredients, instructions, tags, title;
+      var editbtn, heading, ingredients, instructions, t, tags, title;
       title = this.has("title");
       ingredients = (this.has("ingredients")).replace(/<br>/g, "\n");
       instructions = (this.has("instructions")).replace(/<br>/g, "\n");
-      tags = this.has("tags");
+      tags = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.has("tags");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          t = _ref[_i];
+          _results.push(t["name"]);
+        }
+        return _results;
+      }).call(this);
       editbtn = "<div class='controls'>							<div class='btn btn-primary save-btn' id='saveEdits'>								<i class='icon-ok'></i>							</div> 						 	<div class='btn cancel-btn' id='cancelEdit'>						 		<i class='icon-ban-circle'></i>						 	</div>						 </div>";
       heading = "<input type='text' class='recipe-title' name='title' value='" + title + "'></input>";
       ingredients = "<div class='ingredients'>							<h2>Ingredients</h2>							<textarea name='ingredients'>" + ingredients + "</textarea>						</div>";
@@ -325,28 +334,17 @@
       return tagbar.render();
     };
     Workspace.prototype.recipe = function(r) {
-      var recipeview, searchbar, t;
+      var recipeview, searchbar;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.render();
       $(".main").html(recipeview.$el);
       searchbar = new SearchBarView;
       searchbar.render();
-      window.tagbar = new TagBarView(new Tags((function() {
-        var _i, _len, _ref, _results;
-        _ref = recipes.get(r).get("tags");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          t = _ref[_i];
-          _results.push({
-            'name': t
-          });
-        }
-        return _results;
-      })()));
+      window.tagbar = new TagBarView(new Tags(recipes.get(r).get("tags")));
       return tagbar.render();
     };
     Workspace.prototype.edit_recipe = function(r) {
-      var recipeview, t;
+      var recipeview;
       recipeview = new RecipeView(recipes.get(r));
       recipeview.edit();
       $(".main").html(recipeview.$el);
@@ -355,18 +353,7 @@
         'width': '600px',
         'defaultText': ''
       });
-      window.tagbar = new TagBarView(new Tags((function() {
-        var _i, _len, _ref, _results;
-        _ref = recipes.get(r).get("tags");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          t = _ref[_i];
-          _results.push({
-            'name': t
-          });
-        }
-        return _results;
-      })()));
+      window.tagbar = new TagBarView(new Tags(recipes.get(r).get("tags")));
       return tagbar.render();
     };
     Workspace.prototype.make_new = function() {

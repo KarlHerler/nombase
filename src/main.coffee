@@ -24,7 +24,7 @@ class Workspace extends Backbone.Router
 		$(".main").html(recipeview.$el)
 		searchbar = new SearchBarView
 		searchbar.render()
-		window.tagbar = new TagBarView(new Tags(({'name':t} for t in recipes.get(r).get("tags"))))
+		window.tagbar = new TagBarView(new Tags(recipes.get(r).get("tags")))
 		tagbar.render()
 
 	edit_recipe: (r) =>
@@ -32,7 +32,7 @@ class Workspace extends Backbone.Router
 		recipeview.edit()
 		$(".main").html(recipeview.$el)
 		$('#tags').tagsInput({'height':'35px','width':'600px','defaultText':''}); #enables the jquery.tagsinput plugin
-		window.tagbar = new TagBarView(new Tags(({'name':t} for t in recipes.get(r).get("tags"))))
+		window.tagbar = new TagBarView(new Tags(recipes.get(r).get("tags")))
 		tagbar.render()
 
 	make_new: ->
