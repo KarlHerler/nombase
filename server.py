@@ -28,7 +28,7 @@ def new_recipe():
 	recipe = s.add_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], 
 						  recipe[unicode("instructions")], recipe[unicode("tags")])
 	#print recipe
-	return json.dumps(recipe)
+	return json.dumps(recipe.to_dict())
 
 
 @app.route('/<r>', methods=['PUT'])
@@ -37,14 +37,14 @@ def mod_recipe(r):
 	recipe = s.update_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], 
 							 recipe[unicode("instructions")], recipe[unicode("tags")], 
 							 recipe[unicode("id")])
-	return json.dumps(recipe)
+	return json.dumps(recipe.to_dict())
 	
 
 
 
 
 def render_site(state):
-	tags = s.tags()
+	tags = [json.dumps(t) for t in s.tags()]
 	recipes = json.dumps([r.to_dict() for r in s.recipes()])
 
 	return render_template('nombase.html', state=state, tags=tags, recipes=recipes)
