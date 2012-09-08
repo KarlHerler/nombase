@@ -13,25 +13,22 @@ app = Flask(__name__)
 s = Storage()
 
 @app.route('/')
-def landing():
-	tags = s.tags()
-	recipes = s.recipes()
-	
-	return render_template('nombase.html', state="", tags=tags, recipes=recipes)
+def landing(): return render_site("")
+
+@app.route('/<r>', methods=['GET'])
+def recipe(r): return render_site("/"+r)
+
+@app.route('/<r>/edit')
+def edit_recipe(r): return render_site("/"+r+"/edit")
+
 
 @app.route('/', methods=['POST'])
 def new_recipe():
 	recipe = request.json
 	recipe = s.add_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], 
 						  recipe[unicode("instructions")], recipe[unicode("tags")])
-	print recipe
-	return json.dumps(str(recipe))
-
-@app.route('/<r>', methods=['GET'])
-def recipe(r):
-	tags = s.tags()
-	recipes = s.recipes()
-	return render_template('nombase.html', state=("/"+r), tags=tags, recipes=recipes)
+	#print recipe
+	return json.dumps(recipe)
 
 
 @app.route('/<r>', methods=['PUT'])
@@ -40,16 +37,17 @@ def mod_recipe(r):
 	recipe = s.update_recipe(recipe[unicode("title")], recipe[unicode("ingredients")], 
 							 recipe[unicode("instructions")], recipe[unicode("tags")], 
 							 recipe[unicode("id")])
-	return json.dumps(str(recipe))
+	return json.dumps(recipe)
 	
 
-@app.route('/<r>/edit')
-def edit_recipe(r):
+
+
+
+def render_site(state):
 	tags = s.tags()
-	recipes = s.recipes()
-	
-	return render_template('nombase.html', state=("/"+r+"/edit"), tags=tags, recipes=recipes)
+	recipes = json.dumps([r.to_dict() for r in s.recipes()])
 
+	return render_template('nombase.html', state=state, tags=tags, recipes=recipes)
 
 if __name__ == "__main__":
 	 # Bind to PORT if defined, otherwise default to 5000.
