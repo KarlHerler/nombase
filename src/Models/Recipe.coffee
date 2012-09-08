@@ -11,7 +11,7 @@ class Recipe extends Backbone.Model
 
 
 	parse: (response, xhr) ->
-		rsp = JSON.parse(response.replace(/\'/g, '"'))
+		rsp = response
 		@id = 			rsp.id
 		@title = 		rsp.title
 		@ingredients = 	rsp.ingredients
