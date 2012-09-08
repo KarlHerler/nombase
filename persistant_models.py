@@ -35,7 +35,17 @@ class Recipe(Base):
     ingredients =   Column(String)
     instructions =  Column(String)
     tags =          relationship("Tag", backref="recipe")
-    def __repr__(self): return "{'id':'%s', 'title':'%s','ingredients':'%s', 'instructions':'%s', 'tags':%s}" % (self.id, self.title, self.ingredients, self.instructions, self.tags)
+
+    def to_dict(self): 
+        return {
+            'id': self.id,
+            'title': self.title,
+            'ingredients': self.ingredients,
+            'instructions': self.instructions,
+            'tags': [t.to_dict() for t in self.tags]
+        }
+    def __repr__(self): 
+        return "{'id':'%s', 'title':'%s','ingredients':'%s', 'instructions':'%s', 'tags':%s}" % (self.id, self.title, self.ingredients, self.instructions, self.tags)
 
 
 # Represents a Tag
@@ -47,6 +57,8 @@ class Tag(Base):
     id =            Column(Integer, primary_key=True)
     name =          Column(String)
     recipe_id =     Column(String, ForeignKey('recipe.id'))
+    def to_dict(self):
+        return { 'name': self.name }
     def __repr__(self): return "'"+str(self.name)+"'"
 
 
@@ -56,7 +68,7 @@ class Storage:
         return session.query(Recipe).all()
 
     def tags(self):
-        return ["{'name': '"+str(t.name)+"'}" for t in session.query(Tag.name).distinct()]
+        return [{'name': str(t.name) } for t in session.query(Tag.name).distinct()]
 
     def add_recipe(self, title, ingredients, instructions, tags=None, id=None):
         if not id:
